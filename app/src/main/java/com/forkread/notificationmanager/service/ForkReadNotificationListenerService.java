@@ -1,16 +1,27 @@
 package com.forkread.notificationmanager.service;
 
 import android.annotation.TargetApi;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
+import android.support.v4.view.GestureDetectorCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.WindowManager;
 
+import com.forkread.notificationmanager.R;
 import com.forkread.notificationmanager.Utils;
 import com.forkread.notificationmanager.receiver.NotificationDataReceiver;
 import com.forkread.notificationmanager.NotificationManagerApplication;
@@ -24,6 +35,7 @@ import java.util.Calendar;
 public class ForkReadNotificationListenerService extends NotificationListenerService {
     private Context mContext;
     private SharedPreferences mPreferences;
+    private BroadcastReceiver mReceiver;
 
     @Override
 
