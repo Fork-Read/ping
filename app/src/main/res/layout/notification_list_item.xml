@@ -38,7 +38,8 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/app_icon"
                 android:paddingLeft="3dp"
-                android:textColor="@android:color/darker_gray"
+                android:paddingRight="8dp"
+                android:textColor="@color/secondary_color"
                 android:textSize="14sp"
                 android:ellipsize="end"
                 android:maxLines="2"/>
@@ -74,6 +75,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/secondary_color"
             android:textSize="12sp" />
     </RelativeLayout>

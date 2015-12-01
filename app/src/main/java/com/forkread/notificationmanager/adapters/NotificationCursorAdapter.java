@@ -47,7 +47,15 @@ public class NotificationCursorAdapter extends CursorRecyclerAdapter {
             viewHolder.mAppIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_launcher));
             viewHolder.mAppName.setText("");
         }
-        viewHolder.mText.setText(cursor.getString(2) + cursor.getString(3));
+
+        String text;
+
+        if(cursor.getString(2).isEmpty()) {
+            text = cursor.getString(3);
+        }else{
+            text=cursor.getString(2);
+        }
+        viewHolder.mText.setText(text);
         //viewHolder.mTitle.setText(cursor.getString(2));
 //        viewHolder.mTickerText.setText(cursor.getString(1));
         viewHolder.mNotificationtime.setText(DateUtils.getRelativeTimeSpanString(mContext, cursor.getLong(5)).toString());

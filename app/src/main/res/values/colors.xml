@@ -5,4 +5,5 @@
     <color name="accent_color">#009688</color>
     <color name="primary_dark">#303F9F</color>
     <color name="text_color">#CCCCCC</color>
+    <color name="secondary_color">#7F7F7F</color>
 </resources>
