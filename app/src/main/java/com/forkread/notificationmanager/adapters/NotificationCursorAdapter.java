@@ -47,9 +47,9 @@ public class NotificationCursorAdapter extends CursorRecyclerAdapter {
             viewHolder.mAppIcon.setImageDrawable(mContext.getResources().getDrawable(R.drawable.ic_launcher));
             viewHolder.mAppName.setText("");
         }
-        viewHolder.mText.setText(cursor.getString(3));
-        viewHolder.mTitle.setText(cursor.getString(2));
-        viewHolder.mTickerText.setText(cursor.getString(1));
+        viewHolder.mText.setText(cursor.getString(2) + cursor.getString(3));
+        //viewHolder.mTitle.setText(cursor.getString(2));
+//        viewHolder.mTickerText.setText(cursor.getString(1));
         viewHolder.mNotificationtime.setText(DateUtils.getRelativeTimeSpanString(mContext, cursor.getLong(5)).toString());
     }
 
@@ -64,8 +64,8 @@ public class NotificationCursorAdapter extends CursorRecyclerAdapter {
         public CustomViewHolder(View view) {
             super(view);
             mAppIcon = (ImageView) view.findViewById(R.id.app_icon);
-            mTitle = (TextView) view.findViewById(R.id.notification_title);
-            mTickerText = (TextView) view.findViewById(R.id.notification_ticker);
+            //mTitle = (TextView) view.findViewById(R.id.notification_title);
+//            mTickerText = (TextView) view.findViewById(R.id.notification_ticker);
             mText = (TextView) view.findViewById(R.id.notification_text);
             mNotificationtime = (TextView) view.findViewById(R.id.notification_time);
             mAppName = (TextView) view.findViewById(R.id.app_name_view);

@@ -23,7 +23,7 @@ import com.forkread.notificationmanager.database.DatabaseContracts;
 import com.forkread.notificationmanager.service.ForkReadNotificationListenerService;
 
 /**
- * Created by dipesh on 03/08/15.
+ * Created by dipesh on 03/08/15. Edited by Prateek 01/12/15
  */
 public class MainActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
@@ -52,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_settings) {
-            Intent activity = new Intent(this, SettingsActivity.class);
-            startActivity(activity);
-            return true;
-        }
+//        if (item.getItemId() == R.id.menu_settings) {
+//            Intent activity = new Intent(this, SettingsActivity.class);
+//            startActivity(activity);
+//            return true;
+//        }
         return false;
     }
 
