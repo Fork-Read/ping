@@ -9,13 +9,13 @@ import com.forkread.notificationmanager.service.ForkReadNotificationListenerServ
  */
 
 import android.support.v4.app.Fragment;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.support.v4.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.content.Loader;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -34,20 +34,14 @@ public class NotificationListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.notification_list_fragment, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.notifications_list);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new NotificationCursorAdapter(this, null);
-        mRecyclerView.setAdapter(mAdapter);
-        Intent service = new Intent(this, ForkReadNotificationListenerService.class);
-        startService(service);
-        startLoading();
-        registerContentObserver();
+
         return rootView;
     }
 
     private LoaderManager.LoaderCallbacks<Cursor> LOADER_CALLBACKS = new LoaderManager.LoaderCallbacks<Cursor>() {
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-            return new CursorLoader(MainActivity.this, DatabaseContracts.Notifications.CONTENT_URI,
+            return new CursorLoader(getActivity(), DatabaseContracts.Notifications.CONTENT_URI,
                     DatabaseContracts.Notifications.PROJECTION, null, null, DatabaseContracts.Notifications.NOTIFICATION_TIMESTAMP + " DESC");
         }
 
@@ -56,7 +50,7 @@ public class NotificationListFragment extends Fragment {
             if (data == null) {
                 return;
             }
-            mAdapter.changeCursor(data);
+            mAdapter.swapCursor(data);
         }
 
         @Override
@@ -74,7 +68,7 @@ public class NotificationListFragment extends Fragment {
         if (mObserver == null) {
             mObserver = new NotificationsDataChangeObserver(new Handler());
         }
-        getContentResolver().registerContentObserver(DatabaseContracts.Notifications.CONTENT_URI, true, mObserver);
+        getActivity().getContentResolver().registerContentObserver(DatabaseContracts.Notifications.CONTENT_URI, true, mObserver);
     }
 
     private class NotificationsDataChangeObserver extends ContentObserver {
@@ -95,8 +89,19 @@ public class NotificationListFragment extends Fragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mAdapter = new NotificationCursorAdapter(getActivity(), null);
+        mRecyclerView.setAdapter(mAdapter);
+        Intent service = new Intent(getActivity(), ForkReadNotificationListenerService.class);
+        getActivity().startService(service);
+        startLoading();
+        registerContentObserver();
+    }
+    @Override
     public void onDestroy() {
-        getContentResolver().unregisterContentObserver(mObserver);
+        getActivity().getContentResolver().unregisterContentObserver(mObserver);
         super.onDestroy();
     }
 
