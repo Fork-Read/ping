@@ -54,17 +54,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main_activity, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-//        if (item.getItemId() == R.id.menu_settings) {
-//            Intent activity = new Intent(this, SettingsActivity.class);
-//            startActivity(activity);
-//            return true;
-//        }
         return super.onOptionsItemSelected(item);
     }
 

@@ -24,11 +24,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.SettingsActivity"
-            android:label="Settings"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppBaseTheme" />
 
         <provider
             android:name=".database.NotificationsContentProvider"

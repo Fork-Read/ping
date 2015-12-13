@@ -1,28 +1,29 @@
 package com.forkread.notificationmanager.ui;
+import com.forkread.notificationmanager.R;
 
+/**
+ * Created by prateek on 13/12/15.
+ */
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.forkread.notificationmanager.R;
 import com.forkread.notificationmanager.Utils;
-
-import java.net.URLEncoder;
 import java.util.Calendar;
 
-/**
- * Created by dipesh on 07/08/15.
- */
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsFragment extends Fragment {
+
     private Button mStartTime;
     private Button mEndTime;
     private CheckBox mEnableNightMode;
@@ -35,18 +36,18 @@ public class SettingsActivity extends AppCompatActivity {
     private int mSelectedEndMinute;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
-        mPreferences = getSharedPreferences(Utils.PREF_KEY, Context.MODE_MULTI_PROCESS);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.settings_fragment, container, false);
+        mPreferences = getActivity().getSharedPreferences(Utils.PREF_KEY, Context.MODE_MULTI_PROCESS);
         mEditor = mPreferences.edit();
-        mStartTime = (Button) findViewById(R.id.start_time);
-        mEndTime = (Button) findViewById(R.id.end_time);
-        mEnableNightMode = (CheckBox) findViewById(R.id.enable_night_mode);
-        mEnableCustomMode = (CheckBox) findViewById(R.id.enable_custom_mode);
+        mStartTime = (Button) rootView.findViewById(R.id.start_time);
+        mEndTime = (Button) rootView.findViewById(R.id.end_time);
+        mEnableNightMode = (CheckBox) rootView.findViewById(R.id.enable_night_mode);
+        mEnableCustomMode = (CheckBox) rootView.findViewById(R.id.enable_custom_mode);
         mStartTime.setEnabled(false);
         mEndTime.setEnabled(false);
         init();
+        return rootView;
     }
 
     private void init() {
@@ -65,8 +66,8 @@ public class SettingsActivity extends AppCompatActivity {
             setDates();
         } else {
             mEnableCustomMode.setChecked(false);
-            mStartTime.setText(DateUtils.getRelativeTimeSpanString(this, System.currentTimeMillis()));
-            mEndTime.setText(DateUtils.getRelativeTimeSpanString(this, System.currentTimeMillis()));
+            mStartTime.setText(DateUtils.getRelativeTimeSpanString(getActivity(), System.currentTimeMillis()));
+            mEndTime.setText(DateUtils.getRelativeTimeSpanString(getActivity(), System.currentTimeMillis()));
         }
         mEnableCustomMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -87,7 +88,7 @@ public class SettingsActivity extends AppCompatActivity {
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(SettingsActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         String hour = "";
@@ -118,7 +119,7 @@ public class SettingsActivity extends AppCompatActivity {
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(SettingsActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         String hour = "";
@@ -167,20 +168,5 @@ public class SettingsActivity extends AppCompatActivity {
             minute += selectedMinute;
         }
         view.setText(hour + ":" + minute);
-    }
-
-    @Override
-    public void onDestroy() {
-        if (mEnableCustomMode.isChecked()) {
-            mEditor.putBoolean(Utils.PREF_KEY_CUSTOM_SETTING_ENABLED, true);
-            mEditor.putInt(Utils.PREF_KEY_CUSTOM_SETTING_START_TIME_HOUR, mSelectedStartHour);
-            mEditor.putInt(Utils.PREF_KEY_CUSTOM_SETTING_START_TIME_MINUTE, mSelectedStartMinute);
-            mEditor.putInt(Utils.PREF_KEY_CUSTOM_SETTING_END_TIME_HOUR, mSelectedEndHour);
-            mEditor.putInt(Utils.PREF_KEY_CUSTOM_SETTING_END_TIME_MINUTE, mSelectedEndMinute);
-        } else {
-            mEditor.putBoolean(Utils.PREF_KEY_CUSTOM_SETTING_ENABLED, false);
-        }
-        mEditor.commit();
-        super.onDestroy();
     }
 }
