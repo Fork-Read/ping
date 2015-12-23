@@ -16,6 +16,7 @@ import android.text.format.DateUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -26,8 +27,8 @@ public class SettingsFragment extends Fragment {
 
     private Button mStartTime;
     private Button mEndTime;
-    private CheckBox mEnableNightMode;
-    private CheckBox mEnableCustomMode;
+    private Switch mEnableNightMode;
+    private Switch mEnableCustomMode;
     private SharedPreferences mPreferences;
     private SharedPreferences.Editor mEditor;
     private int mSelectedStartHour;
@@ -42,8 +43,8 @@ public class SettingsFragment extends Fragment {
         mEditor = mPreferences.edit();
         mStartTime = (Button) rootView.findViewById(R.id.start_time);
         mEndTime = (Button) rootView.findViewById(R.id.end_time);
-        mEnableNightMode = (CheckBox) rootView.findViewById(R.id.enable_night_mode);
-        mEnableCustomMode = (CheckBox) rootView.findViewById(R.id.enable_custom_mode);
+        mEnableNightMode = (Switch) rootView.findViewById(R.id.enable_night_mode);
+        mEnableCustomMode = (Switch) rootView.findViewById(R.id.enable_custom_mode);
         mStartTime.setEnabled(false);
         mEndTime.setEnabled(false);
         init();
