@@ -43,28 +43,7 @@
                 android:textSize="14sp"
                 android:ellipsize="end"
                 android:maxLines="2"/>
-
-            <!--<TextView-->
-                <!--android:id="@+id/notification_ticker"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@+id/notification_title"-->
-                <!--android:layout_toRightOf="@+id/app_icon"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:padding="3dp"-->
-                <!--android:textColor="@android:color/darker_gray"-->
-                <!--android:textSize="15sp" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/notification_text"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@+id/notification_ticker"-->
-                <!--android:layout_toRightOf="@+id/app_icon"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:padding="3dp"-->
-                <!--android:textColor="@android:color/darker_gray"-->
-                <!--android:textSize="15sp" />-->
+            
         </LinearLayout>
 
         <TextView
